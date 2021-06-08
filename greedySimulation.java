@@ -35,9 +35,14 @@ public class greedySimulation<T extends Comparable<T>> {
         while (!open.isEmpty()) {
             System.out.println("Vehicle " + index);
             ArrayList<Vertex> route = getRoute();
-            System.out.println(route);
+            for (int i=0;i<route.size()-1;i++){
+                System.out.print(route.get(i).ID + " -> ");
+            }
+            System.out.println("0 ");
+            System.out.println("Cost : " + getCost(route));
             cost += getCost(route);
             index++;
+            System.out.println("");
         }
         System.out.println("Tour cost " + cost);
     }
@@ -71,7 +76,7 @@ public class greedySimulation<T extends Comparable<T>> {
                 maximumCapacity -= nextVertex.capacity;
             }
         }
-        System.out.println(maximumCapacity);
+        System.out.println("Capacity : "+ maximumCapacity);
         visited.add(deliveryGraph.head);
         return visited;
     }
@@ -98,3 +103,4 @@ public class greedySimulation<T extends Comparable<T>> {
     }
 
 }
+
