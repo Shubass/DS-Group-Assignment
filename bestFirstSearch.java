@@ -31,9 +31,14 @@ public class bestFirstSearch<T extends Comparable<T>> { //f(n) = h(n) where h(n)
         while (!open.isEmpty()) {
             System.out.println("Vehicle " + index);
             ArrayList<Vertex> route = getRoute();
-            System.out.println(route);
+            for (int i=0;i<route.size()-1;i++){
+                System.out.print(route.get(i).ID + " -> ");
+            }
+            System.out.println("0 ");
+            System.out.println("Cost : " + getCost(route));
             cost += getCost(route);
             index++;
+            System.out.println("");
         }
         System.out.println("Tour cost " + cost);
     }
@@ -59,7 +64,7 @@ public class bestFirstSearch<T extends Comparable<T>> { //f(n) = h(n) where h(n)
                 break;
             }
         }
-        System.out.println(demand);
+        System.out.println("Capacity : "+demand);
         visited.add(deliveryGraph.head);
         return visited;
     }
