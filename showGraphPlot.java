@@ -48,7 +48,7 @@ public class showGraphPlot extends JFrame {
         Random random = new Random();
 //        final BufferedImage image = ImageIO.read(new File("C:\\Projects\\MavenSandbox\\src\\main\\resources\\img.jpg"));
         int index = 0;
-        Color[] arr = {Color.BLACK,Color.WHITE,Color.GREEN,Color.DARK_GRAY,Color.YELLOW,Color.PINK,Color.ORANGE,Color.WHITE};
+        Color[] arr = {Color.BLACK,Color.WHITE,Color.GREEN,Color.DARK_GRAY,Color.PINK,Color.ORANGE,Color.WHITE};
         g.setColor(arr[index]);
         for (int i = 0; i < totalRouteList.size() - 1; i++) {
             if (!totalRouteList.get(i).equals(totalRouteList.get(i + 1))) {
