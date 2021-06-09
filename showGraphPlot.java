@@ -59,7 +59,7 @@ public class showGraphPlot extends JFrame {
                 g.drawLine(startingXPoint, startingYPoint, endingXPoint, endingYPoint);
             } else {
                 index++;
-                g.setColor(arr[index]);
+                g.setColor(arr[index%7]);
             }
         }
         Font f = new Font("Comic Sans MS", Font.BOLD, 10);
