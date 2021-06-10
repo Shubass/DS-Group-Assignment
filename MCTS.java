@@ -8,17 +8,9 @@ public class MCTS {
     double policy[][][], globalPolicy[][];
     Graph<Customer,Double> map;
     ArrayList<Customer> allRoute = new ArrayList<>();
-    private double tourCost = 0;
-
-    public MCTS(Graph<Customer,Double> deliveryGraph, int capacity) {
-       this(deliveryGraph,capacity,3,100);
-    }
-
-    public double getTourCost() {
-        return tourCost;
-    }
-
-    public MCTS(Graph deliveryGraph, int capacity, int level, int iteration) {
+    long time = 0, startTime = 0;
+    
+    public MCTS(Graph<Customer,Double> deliveryGraph, int capacity, int level, int iteration) {
         this.map = deliveryGraph;
         this.capacity = capacity;
         this.level = level;
@@ -29,18 +21,26 @@ public class MCTS {
         globalPolicy = new double[N][N];
     }
 
+    public MCTS(Graph<Customer,Double> deliveryGraph, int capacity) {
+        this(deliveryGraph,capacity,3,100);
+    }
+
     public void printMCTS(){
-        System.out.println("MCTS Simulation");
-        System.out.println("Tour");
+        System.out.println("MCTS simulation");
+        startTime = System.nanoTime();
         ArrayList<Vehicle> vehicles = SearchMCTS(level-1,iteration);
+        double tourCost = 0;
         for(Vehicle i : vehicles){ 
             tourCost += i.calcRoute();
-            allRoute.addAll(i.getRoute());
+            for(Customer j : i.getRoute()){
+                allRoute.add(j);
+            }
         }
+        System.out.println("Time taken to complete search "+(int)(time/1e9)+"s");
         System.out.println("Tour Cost: "+ tourCost);
-        for(int i=0 ; i<vehicles.size() ; i++){
-            System.out.println("Vehicle " + (i+1));
-            System.out.print(vehicles.get(i));
+        System.out.println(vehicles.size());
+        for (Vehicle i : vehicles) {
+            System.out.print(i);
         }
     } 
     
@@ -66,10 +66,15 @@ public class MCTS {
                     bestTourCost = newTourCost;
                     adapt(bestTour, level);
                 }
-            for(Vertex<Customer,Double> j : map.getAllVertex()){
-                j.setVisited(false);
-            }
-//                if(processing_time exceed time limit) return bestTour;
+                for(Vertex<Customer,Double> j : map.getAllVertex()){
+                    j.setVisited(false);
+                }
+                long endTime = System.nanoTime();
+                time += (endTime - startTime);
+                startTime = endTime;
+                if(time >= 60e9){
+                    return bestTour;
+                }
             }
             globalPolicy = policy[level];
         }
