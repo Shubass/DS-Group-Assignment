@@ -9,6 +9,7 @@ public class greedySimulation{
     private ArrayList<Customer> visited = new ArrayList<>();
     private ArrayList<Customer> allRoute = new ArrayList<>();
     private double tourCost = 0;
+    private long time = 0, startTime = 0;
 
     public greedySimulation(Graph map, int capacity) {
         this.map = map;
@@ -19,10 +20,6 @@ public class greedySimulation{
         return map;
     }
 
-    public double getTourCost() {
-        return tourCost;
-    }
-    
     public void setDeliveryGraph(Graph deliveryGraph) {
         this.map = deliveryGraph;
     }
@@ -47,6 +44,9 @@ public class greedySimulation{
                 visited.add(min.toVertex.vertexInfo);
                 Greedy(min.toVertex,map,a);
             }
+            long endTime = System.nanoTime();
+            time += (endTime - startTime);
+            startTime = endTime;
         }
     }
     
@@ -81,16 +81,17 @@ public class greedySimulation{
     
     public void printGreedy(){
         System.out.println("Greedy Simulation");
-        System.out.println("Tour");
         ArrayList<Vehicle> vehicles = new ArrayList<>();
+        startTime = System.nanoTime();
         Greedydisconnected(map,vehicles,capacity);
         for(Vehicle i : vehicles){ 
-            tourCost += i.calcRoute();
+            tourCost += i.calcRoute(); 
         }
+        System.out.println("Time taken to complete search "+(time/1e9)+"s");
         System.out.println("Tour Cost: "+ tourCost);
-        for(int i=0 ; i<vehicles.size() ; i++){
-            System.out.println("Vehicle " + (i+1));
-            System.out.print(vehicles.get(i));
+        System.out.println(vehicles.size());
+        for (Vehicle i : vehicles) {
+            System.out.print(i);
         }
     }
     
