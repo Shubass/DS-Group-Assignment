@@ -11,14 +11,7 @@ public class MCTS {
     private double tourCost = 0;
 
     public MCTS(Graph<Customer,Double> deliveryGraph, int capacity) {
-        this.map = deliveryGraph;
-        this.capacity = capacity;
-        N = deliveryGraph.size;
-        level = 3;
-        iteration = 100;
-        ALPHA = 1;
-        policy = new double[level][N][N];
-        globalPolicy = new double[N][N];
+       this(deliveryGraph,capacity,3,100);
     }
 
     public double getTourCost() {
