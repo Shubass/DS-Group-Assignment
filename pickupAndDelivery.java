@@ -92,7 +92,6 @@ public class pickupAndDelivery {
     }
 
     public void Simu(Graph<Customer, Double> map, ArrayList<Vehicle> vehicles, int capacity, ArrayList<String> deli) {
-
         for (int i = 0; i < deli.size(); i++) {
             String[] spl = deli.get(i).split(">");
             int fr = Integer.parseInt(spl[0]);
@@ -140,8 +139,12 @@ public class pickupAndDelivery {
         for (int i = 0; i < pick.size(); i++) {
             System.out.println(pick.get(i));
         }
-        for (int i = 0; i < pick.size(); i++) {
+        for (int i = 0; i < dv.size(); i++) {
             System.out.println(dv.get(i));
         }
+    }
+    
+    public void addVertex(Customer obj){
+        map.addVertex(obj);
     }
 }
