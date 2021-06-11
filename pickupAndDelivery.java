@@ -13,11 +13,13 @@ public class pickupAndDelivery {
 
     private Graph<Customer, Double> map;
     private int capacity;
-    private ArrayList<Vertex<Customer, Double>> allRoute = new ArrayList<>();
+    private ArrayList<Customer> allRoute = new ArrayList<>();
     private double tourCost = 0;
     private Scanner sc = new Scanner(System.in);
     private ArrayList<String> pick = new ArrayList();
     private ArrayList<String> dv = new ArrayList();
+    private ArrayList<String> deli = new ArrayList();
+    private double time;
 
     public pickupAndDelivery(Graph map, int capacity) {
         this.map = map;
@@ -37,21 +39,24 @@ public class pickupAndDelivery {
         return capacity;
     }
 
+    public double getTourCost() {
+        return tourCost;
+    }
+    
+    public double getTime() {
+        return time;
+    }
+    
+    public void addCustomer(int customerPickUpID,int customerDeliveryID){
+        String sen = customerPickUpID+">"+customerDeliveryID;
+        deli.add(sen);
+    }
+
     public void print() {
+        long startTime = System.nanoTime();
         System.out.println("Pick&Delivery Simulation");
         String delivery = null;
         System.out.println("\nChecking for pickup and delivery...");
-        ArrayList<String> deli = new ArrayList();
-        //     System.out.print("Enter the pick up point : ");
-        //    int a = sc.nextInt();
-        //    System.out.print("\nEnter the delivery point : ");
-        //   int b = sc.nextInt();
-        //   String sen = a+">"+b;
-        //   deli.add(sen);
-        deli.add("1>4");
-        deli.add("3>2");
-        deli.add("4>3");
-        deli.add("2>1");
         ArrayList<Vehicle> vehicles = new ArrayList<>();
         int ind = 1;
         int x = 0;
@@ -80,6 +85,10 @@ public class pickupAndDelivery {
 
         System.out.println("Tour Cost: " + tourCost);
         System.out.println("Vehicles : " + vehicles.size());
+        long endTime = System.nanoTime();
+        time = (endTime - startTime) / Math.pow(10, 9);
+        System.out.printf("Time taken : %.5f\n",time);
+        System.out.println();
     }
 
     public void Simu(Graph<Customer, Double> map, ArrayList<Vehicle> vehicles, int capacity, ArrayList<String> deli) {
@@ -94,14 +103,14 @@ public class pickupAndDelivery {
                     Vehicle a = new Vehicle(capacity);
                     vehicles.add(a);
                     a.addRoute(map.head.vertexInfo);
-                    allRoute.add(map.head);
+                    allRoute.add(map.head.vertexInfo);
                     a.addRoute(x.toVertex.vertexInfo);
-                    allRoute.add(x.toVertex);
+                    allRoute.add(x.toVertex.vertexInfo);
                     a.addNumDemand(x.toVertex.vertexInfo.getDemand());
                     pick.add(a.printPick());
                     Extradelivery(x.toVertex, map, a, to);
                     a.addRoute(map.head.vertexInfo);
-                    allRoute.add(map.head);
+                    allRoute.add(map.head.vertexInfo);
 
                 }
 
@@ -110,7 +119,7 @@ public class pickupAndDelivery {
 
     }
 
-    public ArrayList<Vertex<Customer, Double>> getAllRoute() {
+    public ArrayList<Customer> getAllRoute() {
         return allRoute;
     }
 
@@ -119,7 +128,7 @@ public class pickupAndDelivery {
         for (Edge<Customer, Double> x : map.getNeighbours(toVertex)) {
             if (x.toVertex.vertexInfo.getId() == to) {
                 a.addRoute(x.toVertex.vertexInfo);
-                allRoute.add(x.toVertex);
+                allRoute.add(x.toVertex.vertexInfo);
                 dv.add(a.printDeli());
 
             }
