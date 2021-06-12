@@ -215,7 +215,24 @@ public class basicSimulation {
         if(BestVehicles.isEmpty()){
             System.out.println("Couldn't find a solution due to taking too long to complete search");
         }else{
+            Deliverytime a = new Deliverytime(tourCost); 
             System.out.println("Tour Cost: "+ tourCost);
+            if(!(a.calcT1()>24)){
+        System.out.println("Expexted delivery time : " +(int) a.calcT1() +" hours");
+        }
+        else{
+            int day ;
+            day = (int)a.calcT1() - 24;
+            System.out.println("Expexted delivery time : " +day +" day " +((int) a.calcT1()-24) +" hours");
+        }
+        
+        if(!(a.calcT2()>24)){
+       System.out.println("Have to deliver before : " +(int) a.calcT2() +"hours");        }
+        else{
+            int day ;
+            day = (int)a.calcT1() - 24;
+            System.out.println("Have to deliver before : " +day +"day " +((int) a.calcT2()-24) +" hours");
+        }
             int index = 1;
             for (Vehicle i : BestVehicles) {
                 System.out.println("Vehicle " + index);

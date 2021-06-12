@@ -84,6 +84,24 @@ public class pickupAndDelivery {
         }
 
         System.out.println("Tour Cost: " + tourCost);
+        Deliverytime a = new Deliverytime(tourCost);
+        if(!(a.calcT1()>24)){
+        System.out.println("Expexted delivery time : " +(int) a.calcT1() +" hours");
+        }
+        else{
+            int day ;
+            day = (int)a.calcT1() - 24;
+            System.out.println("Expexted delivery time : " +day +" day " +((int) a.calcT1()-24) +" hours");
+        }
+        
+        if(!(a.calcT2()>24)){
+       System.out.println("Have to deliver before : " +(int) a.calcT2() +"hours");        }
+        else{
+            int day ;
+            day = (int)a.calcT1() - 24;
+            System.out.println("Have to deliver before : " +day +"day " +((int) a.calcT2()-24) +" hours");
+        }
+        
         System.out.println("Vehicles : " + vehicles.size());
         long endTime = System.nanoTime();
         time = (endTime - startTime) / Math.pow(10, 9);
@@ -92,6 +110,7 @@ public class pickupAndDelivery {
     }
 
     public void Simu(Graph<Customer, Double> map, ArrayList<Vehicle> vehicles, int capacity, ArrayList<String> deli) {
+
         for (int i = 0; i < deli.size(); i++) {
             String[] spl = deli.get(i).split(">");
             int fr = Integer.parseInt(spl[0]);
@@ -128,7 +147,7 @@ public class pickupAndDelivery {
             if (x.toVertex.vertexInfo.getId() == to) {
                 a.addRoute(x.toVertex.vertexInfo);
                 allRoute.add(x.toVertex.vertexInfo);
-                dv.add(a.printDeli());
+                dv.add(a.pringtDeli());
 
             }
 
@@ -139,12 +158,8 @@ public class pickupAndDelivery {
         for (int i = 0; i < pick.size(); i++) {
             System.out.println(pick.get(i));
         }
-        for (int i = 0; i < dv.size(); i++) {
+        for (int i = 0; i < pick.size(); i++) {
             System.out.println(dv.get(i));
         }
-    }
-    
-    public void addVertex(Customer obj){
-        map.addVertex(obj);
     }
 }

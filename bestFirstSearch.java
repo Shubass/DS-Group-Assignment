@@ -45,7 +45,24 @@ public class bestFirstSearch<T extends Comparable<T>> { //f(n) = h(n) where h(n)
             System.out.print(vehicles.get(i));
             cost += vehicles.get(i).calcRoute();
         }
+        Deliverytime a = new Deliverytime(cost);
         System.out.println("Tour cost " + cost);
+        if(!(a.calcT1()>24)){
+        System.out.println("Expexted delivery time : " +(int) a.calcT1() +" hours");
+        }
+        else{
+            int day ;
+            day = (int)a.calcT1() - 24;
+            System.out.println("Expexted delivery time : " +day +" day " +((int) a.calcT1()-24) +" hours");
+        }
+        
+        if(!(a.calcT2()>24)){
+       System.out.println("Have to deliver before : " +(int) a.calcT2() +"hours");        }
+        else{
+            int day ;
+            day = (int)a.calcT1() - 24;
+            System.out.println("Have to deliver before : " +day +"day " +((int) a.calcT2()-24) +" hours");
+        }
         long endTime = System.nanoTime();
         time = (double)(endTime - startTime) / Math.pow(10, 9);
         System.out.printf("Time taken : %.5f\n",time);
@@ -94,4 +111,3 @@ public class bestFirstSearch<T extends Comparable<T>> { //f(n) = h(n) where h(n)
         return totalRoute;
     }
 }
-
