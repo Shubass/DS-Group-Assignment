@@ -1,5 +1,6 @@
 package alwaysontime2;
 
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -51,7 +52,24 @@ public class MCTS {
             tourCost += i.calcRoute();
             allRoute.addAll(i.getRoute());
         }
+        Deliverytime a = new Deliverytime(tourCost);
         System.out.println("Tour Cost: " + tourCost);
+        if(!(a.calcT1()>24)){
+        System.out.println("Expexted delivery time : " +(int) a.calcT1() +" hours");
+        }
+        else{
+            int day ;
+            day = (int)a.calcT1() - 24;
+            System.out.println("Expexted delivery time : " +day +" day " +((int) a.calcT1()-24) +" hours");
+        }
+        
+        if(!(a.calcT2()>24)){
+       System.out.println("Have to deliver before : " +(int) a.calcT2() +"hours");        }
+        else{
+            int day ;
+            day = (int)a.calcT1() - 24;
+            System.out.println("Have to deliver before : " +day +"day " +((int) a.calcT2()-24) +" hours");
+        }
         for (int i = 0; i < vehicles.size(); i++) {
             System.out.println("Vehicle " + (i + 1));
             System.out.print(vehicles.get(i));
